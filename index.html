@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aquiflotee - Adjado Market</title>
+<style>
+:root{--b:#2563eb;--r:#e11d48;--v:#7c3aed;--bg:#f3f5fb;--t:#1b2240}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--t)}
+.hero{background:linear-gradient(135deg,#1d4ed8,var(--v) 55%,var(--r));color:#fff;text-align:center;padding:34px 16px 60px;border-radius:0 0 36px 36px}
+.logo{width:88px;height:88px;border-radius:50%;margin:0 auto 12px;background:linear-gradient(135deg,var(--b) 50%,var(--r) 50%);border:5px solid #fff;box-shadow:0 8px 24px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;font-size:50px;font-weight:bold;user-select:none;animation:pop .7s}
+.hero h1{margin:0;font-size:30px;letter-spacing:1px}
+.hero p{margin:6px 0 18px;opacity:.9}
+#q{width:88%;max-width:420px;padding:13px 18px;border:0;border-radius:30px;font-size:16px;box-shadow:0 6px 18px rgba(0,0,0,.25);outline:none}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:0 14px;margin-top:-26px}
+.chip{flex:none;padding:9px 16px;border-radius:20px;background:#fff;border:0;font-weight:bold;color:var(--b);box-shadow:0 3px 10px rgba(0,0,0,.12)}
+.chip.on{background:var(--b);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:14px;padding:18px 14px 90px}
+.card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 6px 18px rgba(30,40,90,.12);animation:pop .5s both;display:flex;flex-direction:column}
+.card .im{aspect-ratio:4/3;background:linear-gradient(135deg,#dbe5ff,#ffe0e8);display:flex;align-items:center;justify-content:center;font-size:44px;overflow:hidden}
+.card .im img{width:100%;height:100%;object-fit:cover}
+.card .in{padding:10px 12px 14px;display:flex;flex-direction:column;gap:5px;flex:1}
+.card h3{margin:0;font-size:16px}
+.card small{color:#6b7392}
+.pr{align-self:flex-start;background:var(--r);color:#fff;padding:4px 12px;border-radius:14px;font-weight:bold;font-size:14px}
+.cmd{margin-top:auto;display:block;text-align:center;background:#25d366;color:#fff;text-decoration:none;padding:10px;border-radius:14px;font-weight:bold}
+.vide{grid-column:1/-1;text-align:center;color:#6b7392;padding:30px}
+footer{background:#161c3a;color:#cfd6f5;text-align:center;padding:20px 12px 90px;font-size:14px}
+.wa{position:fixed;right:16px;bottom:16px;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 6px 16px rgba(0,0,0,.35);z-index:5}
+#own{display:none;position:fixed;left:14px;bottom:16px;z-index:6;padding:13px 18px;border:0;border-radius:30px;background:#161c3a;color:#fff;font-weight:bold;box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.modal{display:none;position:fixed;inset:0;background:rgba(10,14,40,.7);z-index:20;align-items:center;justify-content:center;padding:16px}
+.box{background:#fff;border-radius:20px;padding:20px;width:100%;max-width:340px;text-align:center}
+.box input{width:100%;padding:12px;margin:12px 0;border:2px solid #dfe4f5;border-radius:12px;font-size:16px}
+.btn{border:0;border-radius:12px;padding:11px 18px;font-weight:bold;color:#fff;background:var(--b);font-size:15px}
+.btn.r{background:var(--r)}.btn.g{background:#6b7392}.btn.v{background:#25d366}
+#adm{display:none;position:fixed;inset:0;background:var(--bg);z-index:30;overflow:auto}
+.bar{position:sticky;top:0;background:#161c3a;color:#fff;padding:14px;display:flex;justify-content:space-between;align-items:center;z-index:2}
+.tabs{display:flex;gap:6px;padding:12px}
+.tab{flex:1;padding:11px 4px;border:0;border-radius:12px;background:#fff;font-weight:bold;color:var(--b)}
+.tab.on{background:var(--b);color:#fff}
+.pan{display:none;padding:0 14px 40px}.pan.on{display:block}
+.pan label{display:block;font-weight:bold;margin:12px 0 4px;font-size:14px}
+.pan input,.pan textarea,.pan select{width:100%;padding:11px;border:2px solid #dfe4f5;border-radius:12px;font-size:15px;font-family:inherit;background:#fff}
+.pan textarea{min-height:90px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.item{display:flex;gap:10px;align-items:center;background:#fff;border-radius:14px;padding:10px;margin-top:10px;box-shadow:0 3px 10px rgba(0,0,0,.08)}
+.item img,.item .ph{width:52px;height:52px;border-radius:10px;object-fit:cover;background:#dbe5ff;display:flex;align-items:center;justify-content:center;font-size:24px}
+.item div{flex:1;font-size:14px}
+.item button{padding:8px 10px;font-size:13px}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="logo" id="logo">A</div>
+  <h1 id="shop">Aquiflotee</h1>
+  <p id="slogan"></p>
+  <input id="q" placeholder="🔍 Rechercher un produit...">
+</header>
+<div class="chips" id="chips"></div>
+<main class="grid" id="grid"></main>
+<footer id="foot"></footer>
+
+<a class="wa" id="wa" target="_blank">💬</a>
+<button id="own">⚙️ Menu propriétaire</button>
+
+<!-- Connexion propriétaire -->
+<div class="modal" id="login"><div class="box">
+  <h3>🔒 Accès propriétaire</h3>
+  <input id="pw" type="password" placeholder="Mot de passe">
+  <button class="btn" id="okpw">Entrer</button>
+  <button class="btn g" id="nopw">Annuler</button>
+</div></div>
+
+<!-- Menu propriétaire -->
+<div id="adm">
+  <div class="bar"><b>👑 Menu propriétaire</b><span><button class="btn g" id="out">Déconnexion</button> <button class="btn r" id="close">✕</button></span></div>
+  <div class="tabs">
+    <button class="tab on" data-t="p1">Produits</button>
+    <button class="tab" data-t="p2">Paramètres</button>
+    <button class="tab" data-t="p3">Sauvegarde</button>
+  </div>
+
+  <div class="pan on" id="p1">
+    <h3 id="ftitle">Ajouter un produit</h3>
+    <label>Nom</label><input id="fn">
+    <label>Prix (FCFA)</label><input id="fp" type="number">
+    <label>Catégorie</label><input id="fc" placeholder="Ex : Vêtements">
+    <label>Description</label><textarea id="fd"></textarea>
+    <label>Photo (depuis ton téléphone)</label><input id="ff" type="file" accept="image/*">
+    <div class="row"><button class="btn v" id="fsave">Enregistrer</button><button class="btn g" id="fcancel">Vider</button></div>
+    <h3>Mes produits</h3><div id="plist"></div>
+  </div>
+
+  <div class="pan" id="p2">
+    <h3>Paramètres du site</h3>
+    <label>Nom du site</label><input id="sn">
+    <label>Slogan</label><input id="ss">
+    <label>Numéro WhatsApp (avec indicatif, sans +)</label><input id="sw" placeholder="22900000000">
+    <label>Nouveau mot de passe (laisse vide pour garder l’ancien)</label><input id="sp" type="password">
+    <div class="row"><button class="btn v" id="ssave">Enregistrer</button></div>
+  </div>
+
+  <div class="pan" id="p3">
+    <h3>Sauvegarde de mes fichiers</h3>
+    <p>Copie ces données pour les garder ou les mettre dans un autre téléphone ou site.</p>
+    <textarea id="bk" style="min-height:160px"></textarea>
+    <div class="row">
+      <button class="btn" id="bcopy">📋 Copier</button>
+      <button class="btn" id="bdl">⬇️ Télécharger</button>
+      <button class="btn v" id="bimp">⬆️ Importer</button>
+    </div>
+    <label>Ou choisis un fichier de sauvegarde (.json)</label><input id="bfile" type="file" accept=".json,application/json">
+    <div class="row"><button class="btn r" id="reset">Tout réinitialiser</button></div>
+  </div>
+</div>
+
+<script>
+const DEF={shop:"Aquiflotee",slogan:"Adjado Market · tout au même endroit",wa:"22900000000",pass:"1234",
+products:[
+{id:1,name:"Produit 1",price:1000,cat:"Général",desc:"Description du produit 1",img:""},
+{id:2,name:"Produit 2",price:2000,cat:"Général",desc:"Description du produit 2",img:""},
+{id:3,name:"Produit 3",price:3000,cat:"Nouveautés",desc:"Description du produit 3",img:""},
+{id:4,name:"Produit 4",price:4000,cat:"Nouveautés",desc:"Description du produit 4",img:""}]};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt=n=>Number(n).toLocaleString("fr-FR")+" FCFA";
+let S=load(),cat="Tous",editId=null,img="";
+function load(){try{return Object.assign({},DEF,JSON.parse(localStorage.getItem("aq_data")||"{}"))}catch(e){return JSON.parse(JSON.stringify(DEF))}}
+function save(){try{localStorage.setItem("aq_data",JSON.stringify(S))}catch(e){alert("Mémoire pleine : enlève des photos.")}}
+
+// ---------- Site client ----------
+function wl(txt){return "https://wa.me/"+S.wa+"?text="+encodeURIComponent(txt)}
+function render(){
+  document.title=S.shop+" - Adjado Market";
+  $("shop").textContent=S.shop;$("slogan").textContent=S.slogan;
+  $("logo").textContent=(S.shop[0]||"A").toUpperCase();
+  $("wa").href=wl("Bonjour "+S.shop+", j’ai une question.");
+  $("foot").innerHTML="<b>"+esc(S.shop)+"</b><br>Commandes par WhatsApp : +"+esc(S.wa)+"<br>© "+new Date().getFullYear();
+  const cats=["Tous",...new Set(S.products.map(p=>p.cat||"Général"))];
+  $("chips").innerHTML=cats.map(c=>'<button class="chip'+(c===cat?" on":"")+'" data-c="'+esc(c)+'">'+esc(c)+"</button>").join("");
+  const q=$("q").value.toLowerCase();
+  const list=S.products.filter(p=>(cat==="Tous"||(p.cat||"Général")===cat)&&(p.name+" "+(p.desc||"")).toLowerCase().includes(q));
+  $("grid").innerHTML=list.length?list.map((p,i)=>
+    '<div class="card" style="animation-delay:'+i*60+'ms"><div class="im">'+(p.img?'<img src="'+p.img+'">':"🛍️")+'</div><div class="in"><h3>'+esc(p.name)+'</h3><small>'+esc(p.desc||"")+'</small><span class="pr">'+fmt(p.price)+'</span><a class="cmd" target="_blank" href="'+wl("Bonjour, je veux commander : "+p.name+" ("+fmt(p.price)+")")+'">🛒 Commander</a></div></div>').join(""):'<div class="vide">Aucun produit trouvé 😕</div>';
+}
+$("q").oninput=render;
+$("chips").onclick=e=>{const c=e.target.dataset.c;if(c){cat=c;render()}};
+
+// ---------- Accès caché : touche 5 fois le logo ----------
+let taps=0,tt;
+$("logo").onclick=()=>{taps++;clearTimeout(tt);tt=setTimeout(()=>taps=0,2500);
+  if(taps>=5){taps=0;if(sessionStorage.getItem("aq_owner")==="1")showOwner();else{$("login").style.display="flex";$("pw").value="";$("pw").focus()}}};
+$("nopw").onclick=()=>$("login").style.display="none";
+$("okpw").onclick=()=>{if($("pw").value===S.pass){sessionStorage.setItem("aq_owner","1");$("login").style.display="none";showOwner()}else{alert("Mot de passe incorrect");$("pw").value=""}};
+function showOwner(){$("own").style.display="block";openAdm()}
+$("own").onclick=openAdm;
+if(sessionStorage.getItem("aq_owner")==="1")$("own").style.display="block";
+function openAdm(){$("adm").style.display="block";listP();fillSet();$("bk").value=exportData()}
+$("close").onclick=()=>$("adm").style.display="none";
+$("out").onclick=()=>{sessionStorage.removeItem("aq_owner");$("own").style.display="none";$("adm").style.display="none"};
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on",x===b));
+  document.querySelectorAll(".pan").forEach(p=>p.classList.toggle("on",p.id===b.dataset.t));
+  if(b.dataset.t==="p3")$("bk").value=exportData()});
+
+// ---------- Produits ----------
+function resizeImg(file){return new Promise(ok=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{
+  const m=520,k=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement("canvas");
+  c.width=im.width*k;c.height=im.height*k;c.getContext("2d").drawImage(im,0,0,c.width,c.height);ok(c.toDataURL("image/jpeg",.75))};im.src=r.result};r.readAsDataURL(file)})}
+$("ff").onchange=async e=>{if(e.target.files[0])img=await resizeImg(e.target.files[0])};
+function clearForm(){editId=null;img="";["fn","fp","fc","fd","ff"].forEach(i=>$(i).value="");$("ftitle").textContent="Ajouter un produit"}
+$("fcancel").onclick=clearForm;
+$("fsave").onclick=()=>{
+  const name=$("fn").value.trim();if(!name||!$("fp").value){alert("Mets au moins le nom et le prix");return}
+  const p={id:editId||Date.now(),name,price:+$("fp").value,cat:$("fc").value.trim()||"Général",desc:$("fd").value.trim(),img};
+  if(editId){const i=S.products.findIndex(x=>x.id===editId);S.products[i]=p}else S.products.push(p);
+  save();clearForm();listP();render()};
+function listP(){$("plist").innerHTML=S.products.map(p=>
+  '<div class="item">'+(p.img?'<img src="'+p.img+'">':'<div class="ph">🛍️</div>')+'<div><b>'+esc(p.name)+'</b><br>'+fmt(p.price)+' · '+esc(p.cat||"")+'</div><button class="btn" data-e="'+p.id+'">Modifier</button><button class="btn r" data-d="'+p.id+'">Suppr.</button></div>').join("")||"<p>Aucun produit.</p>"}
+$("plist").onclick=e=>{
+  const d=e.target.dataset.d,ed=e.target.dataset.e;
+  if(d&&confirm("Supprimer ce produit ?")){S.products=S.products.filter(p=>p.id!=d);save();listP();render()}
+  if(ed){const p=S.products.find(x=>x.id==ed);editId=p.id;img=p.img||"";$("fn").value=p.name;$("fp").value=p.price;$("fc").value=p.cat||"";$("fd").value=p.desc||"";$("ftitle").textContent="Modifier le produit";scrollTo(0,0);$("adm").scrollTop=0}};
+
+// ---------- Paramètres ----------
+function fillSet(){$("sn").value=S.shop;$("ss").value=S.slogan;$("sw").value=S.wa;$("sp").value=""}
+$("ssave").onclick=()=>{S.shop=$("sn").value.trim()||"Aquiflotee";S.slogan=$("ss").value.trim();S.wa=$("sw").value.replace(/\D/g,"")||S.wa;
+  if($("sp").value.trim())S.pass=$("sp").value.trim();save();render();alert("Paramètres enregistrés ✅")};
+
+// ---------- Sauvegarde ----------
+function exportData(){const c=Object.assign({},S);delete c.pass;return JSON.stringify(c)}
+$("bcopy").onclick=async()=>{try{await navigator.clipboard.writeText($("bk").value);alert("Copié ✅")}catch(e){$("bk").select();document.execCommand("copy");alert("Copié ✅")}};
+$("bdl").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([$("bk").value],{type:"application/json"}));a.download="aquiflotee-sauvegarde.json";a.click()};
+function imp(txt){try{const d=JSON.parse(txt);if(!Array.isArray(d.products))throw 0;
+  S.products=d.products;if(d.shop)S.shop=d.shop;if(d.slogan)S.slogan=d.slogan;if(d.wa)S.wa=d.wa;save();render();listP();fillSet();alert("Importé ✅")}catch(e){alert("Données invalides ❌")}}
+$("bimp").onclick=()=>imp($("bk").value);
+$("bfile").onchange=e=>{const f=e.target.files[0];if(f){const r=new FileReader();r.onload=()=>{$("bk").value=r.result;imp(r.result)};r.readAsText(f)}};
+$("reset").onclick=()=>{if(confirm("Tout effacer et revenir au départ ?")){localStorage.removeItem("aq_data");S=JSON.parse(JSON.stringify(DEF));render();listP();fillSet();$("bk").value=exportData()}};
+
+render();
+</script>
+</body>
+</html>
